@@ -1,0 +1,19 @@
+{
+  "name": "playmovies",
+  "version": "1.0.0",
+  "description": "Proyecto realizado como practica del curso de consumo de API REST con JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Orlando0x/playmovies.git"
+  },
+  "author": "@0xOrlando29",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Orlando0x/playmovies/issues"
+  },
+  "homepage": "https://github.com/Orlando0x/playmovies#readme"
+}
