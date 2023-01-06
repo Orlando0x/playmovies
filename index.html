@@ -8,6 +8,64 @@
     <link rel="stylesheet" href="./styles/app.css">
 </head>
 <body>
+    <header>
+        <h1>PlayMovies</h1>
+        <div class="header-search">
+            <input type="text" placeholder="Search">
+      
+            <p>🔍</p>
+        </div>
+        <div id="detail" class="header-detail inactive">
+            <img src="./0243323.jpg" alt="">
+            <h2>Spiderman y los 7 enanitos</h2>
+            <div class="header-detail--datos">
+                <p>🗓️ 12/12/2021</p>
+                <p>🕛 1.30h</p>
+                <p>⭐ 80%</p>
+            </div>
+            <div class="header-detail--description">
+                <h3>Description</h3>
+                <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia totam nisi illum debitis tenetur neque saepe quas quo laborum fuga! Unde ad, impedit quam ducimus inventore fugit repellat minima cumque.</p>
+
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <section class="main-trending">
+            <h2>Tendencias</h2>
+            <button>Ver mas</button>
+        </section>
+        <section class="main-movies--container">
+        </section>
+        <section class="main-menu">
+            <div class="main-menu--buttons">
+                <button class="nowPlaying">Now playing</button>
+                <button class="topRated">Top rated</button>
+                <button class="upcoming">Upcoming</button>
+            </div>
+            <div class="main-menu--nowPlaying main-menu--movies inactive">
+<!--                 <img class="movie" src="./0243323.jpg" alt="movie">
+-->
+            </div>
+            <div class="main-menu--topRated main-menu--movies inactive">
+<!--                 <img class="movie" src="./0243323.jpg" alt="movie">
+-->
+            </div>
+            <div class="main-menu--upcoming main-menu--movies inactive">
+<!--                 <img class="movie" src="./0243323.jpg" alt="movie">
+-->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <button id="home"><p>🏠</p>
+            Home
+        </button>
+        <button><p>🔍</p>
+            Search</button>
+        <button><p>⭐</p>
+            Watch list</button>
+    </footer>
     <script src="./src/secrets.js"></script>
     <script src="./src/main.js"></script>
 </body>
