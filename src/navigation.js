@@ -19,6 +19,7 @@ function navigator() {
         trendingMoviesContainer.classList.add('inactive');
         mainMenu.classList.add('inactive');
         mainSearch.classList.remove('inactive');
+        trendingFull.classList.add('inactive');
         mainSearch.innerHTML='';
         if(barraSearch.value.length > 1){
             searchMovies(barraSearch.value);
