@@ -1,22 +1,32 @@
-const movie = document.querySelectorAll('.movie');
-const main = document.querySelector('.main');
-const barraSearch = document.querySelector('.header-search');
-const detailMovie = document.querySelector('#detail');
-const btnHome = document.querySelector('#home');
-const API_URL = 'https://api.themoviedb.org/3/'
-const mainMenu = document.querySelector('.main-menu')
-const menuUpcoming = document.querySelector('.main-menu--upcoming');
-const menuTopRated = document.querySelector('.main-menu--topRated');
-const menuNowPlaying = document.querySelector('.main-menu--nowPlaying');
-const btnNowPlaying = document.querySelector('.nowPlaying');
-const btnTopRated = document.querySelector('.topRated');
-const btnUpcoming = document.querySelector('.upcoming')
+const api = axios.create({
+    baseURL: 'https://api.themoviedb.org/3/',
+    headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+    },
+    params: {
+        'api_key': API_KEY,
+    },
+})
 
-movie.forEach(i => i.addEventListener('click', ShowDetail))
-btnHome.addEventListener('click', HideDetail);
+let historySearch = [];
+btnMore.addEventListener('click', () => location.hash = '#trending');
+btnHome.addEventListener('click', () => location.hash = '#home');
+
+/* movie.forEach(i => i.addEventListener('click', ShowDetail))  */
+//btnHome.addEventListener('click', HideDetail);
 btnNowPlaying.addEventListener('click', getNowPlayingMovies);
 btnTopRated.addEventListener('click', getTopRatedMovies);
 btnUpcoming.addEventListener('click', getUpcomingMovies);
+btnSearch.addEventListener('click', ()=> location.hash = '#search=' + barraSearch.value)
+headerBtnSearch.addEventListener('click', ()=> location.hash = '#search=' + barraSearch.value)
+headerBtnBack.addEventListener('click', () => {
+    if(!historySearch[historySearch.length-2]){
+        historySearch.pop();
+        return location.hash= '#home';
+    }
+    location.hash = '#search=' + historySearch[historySearch.length-2] 
+    barraSearch.value = historySearch[historySearch.length-2]
+    } )
 
 
 function ShowDetail (){
@@ -32,24 +42,32 @@ function HideDetail() {
 }
 
 async function getTrendingMoviesPreview(){
-    const res = await fetch(API_URL + '/trending/movie/day?api_key=' + API_KEY)
-    const data = await res.json()
+    /* const res = await api(API_URL + '/trending/movie/day?api_key=' + API_KEY)
+    const data = await res.json() */
+    const { data } = await api('/trending/movie/day')
     const movies = data.results;
     console.log(movies);
-
+    trendingMoviesContainer.innerHTML='';
     for (let i = 0; i < 5; i++) {
-        const trendingMoviesContainer = document.querySelector('.main-movies--container')
+
         const moviesContainer = document.createElement('div')
         moviesContainer.classList.add('movie')
 
         const movieImg = document.createElement('img')
         movieImg.src = 'https://image.tmdb.org/t/p/w300' + movies[i].poster_path;
         movieImg.alt = movies[i].title;
-        
+        const movieTittle = document.createElement('h2');
+        movieTittle.innerText = movies[i].title;
+
         moviesContainer.appendChild(movieImg);
+        moviesContainer.appendChild(movieTittle);
         trendingMoviesContainer.appendChild(moviesContainer);
         
     }
+    trendingFull.classList.add('inactive');
+    trendingMoviesContainer.classList.remove('inactive');
+    btnMore.classList.remove('inactive')
+
 /*     movies.forEach(movie => {
         const trendingMoviesContainer = document.querySelector('.main-movies--container')
         const moviesContainer = document.createElement('div')
@@ -65,11 +83,12 @@ async function getTrendingMoviesPreview(){
     }) */
 }
 
-getTrendingMoviesPreview();
+
 
 async function getTopRatedMovies(){
-    const res = await fetch(API_URL + 'movie/top_rated?api_key=' + API_KEY + '&language=en-US&page=1')
-    const data = await res.json();
+    const {data,status, request } = await api ('movie/top_rated')
+    console.log([status, request]);
+  
     const movies = data.results;
     menuTopRated.innerHTML = '';
     menuNowPlaying.classList.add('inactive');
@@ -134,4 +153,64 @@ async function getNowPlayingMovies(){
 
 }
 
-getNowPlayingMovies();
+async function getTrendingFull(){
+    const {data} = await api('trending/movie/week');
+    const movies = data.results;
+    console.log(data);
+    mainMenu.classList.add('inactive');
+    trendingMoviesContainer.classList.add('inactive');
+    btnMore.classList.add('inactive');
+    trendingFull.classList.remove('inactive');
+    trendingFull.innerHTML='';
+    movies.forEach(movie => {
+
+        const movieContainer = document.createElement('div');
+        movieContainer.classList.add('movie');
+        const imgMovie = document.createElement('img');
+        imgMovie.src = 'https://image.tmdb.org/t/p/w300' + movie.poster_path;
+        imgMovie.alt = movie.title;
+
+        trendingFull.appendChild(movieContainer);
+        movieContainer.appendChild(imgMovie);
+
+    })
+
+
+}
+
+async function searchMovies(text){
+    const {data} = await api('search/movie', {
+        params: {
+            query: text,
+        }
+    })
+    const movies = data.results;
+    console.log(historySearch[historySearch.length-2]);
+    console.log(text);
+    if(historySearch[historySearch.length-2] === text){
+        console.log('entrara el pop');
+        historySearch.pop();
+    }    else {
+        historySearch.push(text);
+    }
+    console.log(historySearch);
+    barraSearch.value = ''
+    
+    movies.forEach(movie => {
+
+        const movieContainer = document.createElement('div');
+        movieContainer.classList.add('container-movie');
+        const imgMovie = document.createElement('img');
+        imgMovie.src = 'https://image.tmdb.org/t/p/w300' + movie.poster_path;
+        imgMovie.alt = movie.title;
+        const movieTittle = document.createElement('h2');
+        movieTittle.innerText=movie.title;
+
+        mainSearch.appendChild(movieContainer);
+        movieContainer.appendChild(imgMovie);
+        movieContainer.appendChild(movieTittle);
+
+    })
+
+    
+}

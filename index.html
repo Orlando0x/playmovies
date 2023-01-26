@@ -10,32 +10,39 @@
 <body>
     <header>
         <h1>PlayMovies</h1>
-        <div class="header-search">
-            <input type="text" placeholder="Search">
+        <div class="header-search--container">
+            <button class="header-search--back">⬅️</button>
+            <input class="header-search" type="search" placeholder="Search">
       
-            <p>🔍</p>
-        </div>
-        <div id="detail" class="header-detail inactive">
-            <img src="./0243323.jpg" alt="">
-            <h2>Spiderman y los 7 enanitos</h2>
-            <div class="header-detail--datos">
-                <p>🗓️ 12/12/2021</p>
-                <p>🕛 1.30h</p>
-                <p>⭐ 80%</p>
-            </div>
-            <div class="header-detail--description">
-                <h3>Description</h3>
-                <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia totam nisi illum debitis tenetur neque saepe quas quo laborum fuga! Unde ad, impedit quam ducimus inventore fugit repellat minima cumque.</p>
-
-            </div>
+            <button id="header--btnSearch">🔍</button>
         </div>
     </header>
     <main class="main">
+        <section class="main-search inactive">
+
+        </section>
+        <section class="main-movieDetail inactive" >
+            <img src="https://image.tmdb.org/t/p/w300/kuf6dutpsT0vSVehic3EZIqkOBt.jpg" alt="">
+            <h2 class="title">Spiderman y los 7 enanitos</h2>
+            <div class="header-detail--datos">
+                <p class="releaseDate">🗓️ 12/12/2021</p>
+                <p>🕛 1.30h</p>
+                <p class="">⭐ 80%</p>
+            </div>
+            <div class="main-movieDetail--description">
+                <h3>Synopsis</h3>
+                <p class="synopsis">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia totam nisi illum debitis tenetur neque saepe quas quo laborum fuga! Unde ad, impedit quam ducimus inventore fugit repellat minima cumque.</p>
+
+        </section>
         <section class="main-trending">
-            <h2>Tendencias</h2>
-            <button>Ver mas</button>
+            <h2>Trending</h2>
+            <button class="more">Ver mas</button>
         </section>
         <section class="main-movies--container">
+            <div class="movie">
+                <h2 class="movie-title">Prueba</h2>
+                <img src="https://image.tmdb.org/t/p/w300/d9nBoowhjiiYc4FBNtQkPY7c11H.jpg" alt="M3GAN">
+            </div>
         </section>
         <section class="main-menu">
             <div class="main-menu--buttons">
@@ -56,17 +63,21 @@
 -->
             </div>
         </section>
+        <section class="main-trending--full inactive"></section>
     </main>
     <footer>
         <button id="home"><p>🏠</p>
             Home
         </button>
-        <button><p>🔍</p>
+        <button id="search"><p>🔍</p>
             Search</button>
         <button><p>⭐</p>
             Watch list</button>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="./src/nodes.js"></script>
     <script src="./src/secrets.js"></script>
     <script src="./src/main.js"></script>
+    <script src="./src/navigation.js"></script>
 </body>
 </html>
