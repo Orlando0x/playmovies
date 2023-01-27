@@ -35,7 +35,7 @@ h2{
     color: white;
 }
 input{
-    width: 60%;
+    width: 100%;
     height: 30px;
     background-color: var(--gray-light);
     border: none;
@@ -47,23 +47,11 @@ header {
     margin-left: 16px;
     margin-right: 16px;
 }
-.main-movieDetail {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 16px;
-}
-.main-movieDetail img{
 
-    height: 300px;
-    border-radius: 12px;
-    border: 2px solid white;
-    
+.header-search--container{
+    display: flex;
 }
-.main-movieDetail--description {
-    width: 100%;
-}
-.header-search--container {
+.header-searchBar {
     position: relative;
 }
 .header-search--container input::placeholder {
@@ -74,8 +62,8 @@ header {
 
 .header-search--container #header--btnSearch {
     position: absolute;
-    right: 25%;
-    top: -5%;
+    right: -15%;
+    top: -10%;
     background-color: white;
     border: none;
     border-radius: 50%;
@@ -253,6 +241,56 @@ main {
 
     height: 100%;
     border-radius: 8px;
+}
+
+.header-detail--datos{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+/* Movie Detail*/
+.main-movieDetail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 580px;
+    overflow-y: scroll;
+}
+.main-movieDetail img{
+
+    height: 300px;
+    border-radius: 12px;
+    border: 2px solid white;
+    
+}
+.main-movieDetail--description {
+    width: 100%;
+}
+
+/* Similar movies */
+.similar-movie{
+    display: flex;
+    gap: 4px;
+    overflow-x: scroll;
+
+}
+.similar-container h3{
+    width: 100%;
+    text-align: center;
+    color: var(--blue-1);
+
+}
+.main-movieDetail .similar-movie img {
+    height: 200px;
+    border: none
+}
+.main-movieDetail .similar-movie .movie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.main-movieDetail .similar-movie h2 {
+    font-size: 12px;
 }
 
 

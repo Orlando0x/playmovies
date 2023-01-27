@@ -9,34 +9,42 @@
 </head>
 <body>
     <header>
-        <h1>PlayMovies</h1>
-        <div class="header-search--container">
-            <button class="header-search--back">⬅️</button>
-            <input class="header-search" type="search" placeholder="Search">
-      
-            <button id="header--btnSearch">🔍</button>
-        </div>
+        <section class="header-container">
+            <h1>PlayMovies</h1>
+            <div class="header-search--container">
+                <button class="header-search--back inactive">⬅️</button>
+                <div class="header-searchBar">
+                    <input class="header-search" type="search" placeholder="Search">
+                    <button id="header--btnSearch">🔍</button>
+                </div>
+            </div>
+            <h2 class="searchTitle"></h2>
+        </section>
     </header>
     <main class="main">
         <section class="main-search inactive">
 
         </section>
         <section class="main-movieDetail inactive" >
-            <img src="https://image.tmdb.org/t/p/w300/kuf6dutpsT0vSVehic3EZIqkOBt.jpg" alt="">
-            <h2 class="title">Spiderman y los 7 enanitos</h2>
+            <img class="posterImg" src="" alt="">
+            <h2 class="title"></h2>
             <div class="header-detail--datos">
-                <p class="releaseDate">🗓️ 12/12/2021</p>
-                <p>🕛 1.30h</p>
-                <p class="">⭐ 80%</p>
+                <p class="releaseDate"></p>
+                <p class="runtime"></p>
+                <p class="rate"></p>
             </div>
             <div class="main-movieDetail--description">
-                <h3>Synopsis</h3>
-                <p class="synopsis">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia totam nisi illum debitis tenetur neque saepe quas quo laborum fuga! Unde ad, impedit quam ducimus inventore fugit repellat minima cumque.</p>
-
+                <p class="synopsis"></p>
+            <div class="similar-container">
+                <h3>Related Movies</h3>
+                <div class="similar-movie">
+                    
+                </div>
+            </div>
         </section>
         <section class="main-trending">
             <h2>Trending</h2>
-            <button class="more">Ver mas</button>
+            <button class="more">More</button>
         </section>
         <section class="main-movies--container">
             <div class="movie">

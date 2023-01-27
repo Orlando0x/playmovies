@@ -10,17 +10,32 @@ function navigator() {
         console.log('Top Rated!!');
     } else if(location.hash.startsWith('#nowPlaying')){
         console.log('Now Playing!!');
-    } else if(location.hash.startsWith('#movieDetail')){
-        console.log('Movie Detail !!!!');
-        /*quitar inactive a main-moiveDetail
-        agregar inactice a header-search main-movies--container main-menu */
+    } else if(location.hash.startsWith('#movie=')){
+        searchTitle.classList.add('inactive');
+        movieDetailsContainer.classList.remove('inactive');
+        headerBtnBack.classList.remove('inactive');
+        mainTrending.classList.add('inactive');
+        trendingMoviesContainer.classList.add('inactive');
+        mainMenu.classList.add('inactive');
+        mainSearch.classList.add('inactive');
+        trendingFull.classList.add('inactive');
+        const movie = location.hash.split('=');
+        console.log(movie[1]);
+        getMovieDetailById(movie[1]);
+
+
     } else if(location.hash.startsWith('#search')){
+        searchTitle.classList.remove('inactive');
+        movieDetailsContainer.classList.add('inactive');
+        headerBtnBack.classList.remove('inactive');
         mainTrending.classList.add('inactive');
         trendingMoviesContainer.classList.add('inactive');
         mainMenu.classList.add('inactive');
         mainSearch.classList.remove('inactive');
         trendingFull.classList.add('inactive');
+
         mainSearch.innerHTML='';
+        searchTitle.innerText='';
         if(barraSearch.value.length > 1){
             searchMovies(barraSearch.value);
             console.log('Buscando...');
@@ -30,8 +45,11 @@ function navigator() {
         
     } else {
         console.log('Home!!');
+        searchTitle.classList.add('inactive');
+        movieDetailsContainer.classList.add('inactive');
         mainTrending.classList.remove('inactive');
         mainSearch.classList.add('inactive');
+        headerBtnBack.classList.add('inactive');
         getTrendingMoviesPreview();
         mainMenu.classList.remove('inactive');
         getNowPlayingMovies();

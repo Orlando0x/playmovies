@@ -9,11 +9,9 @@ const api = axios.create({
 })
 
 let historySearch = [];
+
 btnMore.addEventListener('click', () => location.hash = '#trending');
 btnHome.addEventListener('click', () => location.hash = '#home');
-
-/* movie.forEach(i => i.addEventListener('click', ShowDetail))  */
-//btnHome.addEventListener('click', HideDetail);
 btnNowPlaying.addEventListener('click', getNowPlayingMovies);
 btnTopRated.addEventListener('click', getTopRatedMovies);
 btnUpcoming.addEventListener('click', getUpcomingMovies);
@@ -26,20 +24,10 @@ headerBtnBack.addEventListener('click', () => {
     }
     location.hash = '#search=' + historySearch[historySearch.length-2] 
     barraSearch.value = historySearch[historySearch.length-2]
+//Otra forma mas simple seria usando
+// history.back() que se ejecute al pulsar el boton
+
     } )
-
-
-function ShowDetail (){
-    main.classList.add('inactive');
-    barraSearch.classList.add ('inactive');
-    detailMovie.classList.remove('inactive');
-
-}
-function HideDetail() {
-    main.classList.remove('inactive');
-    barraSearch.classList.remove ('inactive');
-    detailMovie.classList.add('inactive');
-}
 
 async function getTrendingMoviesPreview(){
     /* const res = await api(API_URL + '/trending/movie/day?api_key=' + API_KEY)
@@ -52,6 +40,11 @@ async function getTrendingMoviesPreview(){
 
         const moviesContainer = document.createElement('div')
         moviesContainer.classList.add('movie')
+
+        moviesContainer.addEventListener('click', ()=> 
+            location.hash = '#movie='+ movies[i].id
+        )
+
 
         const movieImg = document.createElement('img')
         movieImg.src = 'https://image.tmdb.org/t/p/w300' + movies[i].poster_path;
@@ -104,6 +97,10 @@ async function getTopRatedMovies(){
 
         menuTopRated.appendChild(topRatedImg);
 
+        topRatedImg.addEventListener('click', ()=> 
+            location.hash = '#movie='+ movie.id
+        )
+
     })
 
 }
@@ -128,6 +125,11 @@ async function getUpcomingMovies(){
 
         menuUpcoming.appendChild(topRatedImg);
         mainMenu.appendChild(menuUpcoming);
+
+        topRatedImg.addEventListener('click', ()=> 
+            location.hash = '#movie='+ movie.id
+        )
+
     })
 
 }
@@ -149,6 +151,9 @@ async function getNowPlayingMovies(){
 
         menuNowPlaying.appendChild(movieImg);
 
+        movieImg.addEventListener('click', ()=> 
+            location.hash = '#movie='+ movie.id
+        )
     })
 
 }
@@ -162,8 +167,8 @@ async function getTrendingFull(){
     btnMore.classList.add('inactive');
     trendingFull.classList.remove('inactive');
     trendingFull.innerHTML='';
-    movies.forEach(movie => {
 
+    movies.forEach(movie => {
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie');
         const imgMovie = document.createElement('img');
@@ -172,6 +177,10 @@ async function getTrendingFull(){
 
         trendingFull.appendChild(movieContainer);
         movieContainer.appendChild(imgMovie);
+
+        movieContainer.addEventListener('click', ()=> 
+            location.hash = '#movie='+ movie.id
+        )
 
     })
 
@@ -194,8 +203,10 @@ async function searchMovies(text){
         historySearch.push(text);
     }
     console.log(historySearch);
+    searchTitle.innerText = '';
+    searchTitle.innerText = 'Resultados para: '+ text;
     barraSearch.value = ''
-    
+
     movies.forEach(movie => {
 
         const movieContainer = document.createElement('div');
@@ -210,7 +221,58 @@ async function searchMovies(text){
         movieContainer.appendChild(imgMovie);
         movieContainer.appendChild(movieTittle);
 
+        movieContainer.addEventListener('click', ()=> 
+            location.hash = '#movie='+ movie.id
+        )
+
     })
 
     
 }
+
+
+async function getSimilarMoviesByID(id){
+    const {data} = await api (`movie/${id}/similar`);
+    const movies = data.results;
+    console.log(movies);
+    similarMovies.innerHTML='';
+    for (let i = 0; i < 10; i++) {
+        const movie = document.createElement('div');
+        movie.classList.add('movie');
+
+        const movieImg = document.createElement('img');
+        movieImg.src = 'https://image.tmdb.org/t/p/w300' + movies[i].poster_path;
+        movieImg.alt = movies[i].title;
+
+        const movieTitle = document.createElement('h2');
+        movieTitle.innerText = movies[i].title;
+
+        similarContainer.appendChild(similarMovies);
+        similarMovies.appendChild(movie);
+        movie.appendChild(movieImg);
+        movie.appendChild(movieTitle);
+
+        movie.addEventListener('click', ()=> location.hash= '#movie='+movies[i].id)
+        
+    }
+
+}
+
+async function getMovieDetailById (id) {
+    const movie = await api('movie/'+ id);
+    console.log(movie.data);
+
+    movieImg.src = 'https://image.tmdb.org/t/p/w300' + movie.data.poster_path;
+
+    movieTitle.innerText = movie.data.title;
+
+    releaseDate.innerText = '🗓️ ' + movie.data.release_date;
+    rate.innerHTML = '⭐ '+  (movie.data.vote_average).toFixed(1) + '/10';
+    duration.innerHTML = '🕜 ' + movie.data.runtime + ' min';
+
+    synopsis.innerText = movie.data.overview;
+    getSimilarMoviesByID(id)
+
+}
+
+getSimilarMoviesByID(536554);
